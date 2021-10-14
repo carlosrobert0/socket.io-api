@@ -1,0 +1,16 @@
+import { Entity, PrimaryColumn, Column, CreateDateColumn } from "typeorm"
+
+@Entity("users")
+class User {
+
+  @PrimaryColumn()
+  id: string;
+
+  @Column()
+  email: string;
+
+  @CreateDateColumn()
+  created_at: Date;
+}
+
+export { User }
