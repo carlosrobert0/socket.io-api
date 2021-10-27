@@ -5,10 +5,10 @@ class SettingsController {
   async create(request: Request, response: Response) {
     const { chat, username } = request.body
 
-    const settingsRepository = new SettingsService();
+    const settingsService = new SettingsService();
 
     try {
-      const settings = settingsRepository.create({
+      const settings = settingsService.create({
         chat,
         username
       });
@@ -19,6 +19,27 @@ class SettingsController {
         message: err.message,
       })
     } 
+  }
+
+  async findByUsername(request: Request, response: Response) {
+    const { username } = request.params;
+
+    const settingsService = new SettingsService();
+
+    const settings = await settingsService.findByUsername(username);
+
+    response.json(settings);
+  }
+
+  async update(request: Request, response: Response) {
+    const { username } = request.params;
+    const { chat } = request.body;
+
+    const settingsService = new SettingsService();
+
+    const settings = await settingsService.update(username, chat);
+
+    response.json(settings);
   }
 }
 
